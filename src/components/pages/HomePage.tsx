@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
 import { QuizAppActions } from "../../QuizApp/reducer";
 import { IState } from "../../store/reducers";
+import Fade from "react-reveal/Fade";
 
 const useStyles = makeStyles({
   spacer: {
@@ -30,25 +31,27 @@ const HomePage: React.FunctionComponent<RouteComponentProps> = ({
   }, [dispatch, fetchingQuizSagaRequest, quizQuestions.length]);
 
   return (
-    <div className={classes.spacer}>
-      <Typography variant="h2">Welcome to the Trivia Challenge!</Typography>
-      <Typography>
-        You will be presented with 10 True or False questions.
-      </Typography>
-      <Typography>Can you score 100%?</Typography>
+    <Fade>
+      <div className={classes.spacer}>
+        <Typography variant="h2">Welcome to the Trivia Challenge!</Typography>
+        <Typography>
+          You will be presented with 10 True or False questions.
+        </Typography>
+        <Typography>Can you score 100%?</Typography>
 
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={() => {
-          history.push("/start-quiz");
-        }}
-        size="large"
-        className={classes.btnTopSpace}
-      >
-        Begin
-      </Button>
-    </div>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => {
+            history.push("/start-quiz");
+          }}
+          size="large"
+          className={classes.btnTopSpace}
+        >
+          Begin
+        </Button>
+      </div>
+    </Fade>
   );
 };
 

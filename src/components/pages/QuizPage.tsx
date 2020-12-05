@@ -5,8 +5,10 @@ import { IState } from "../../store/reducers";
 import QuestionCard from "../../QuizApp/Subcomponents/QuestionCard";
 import { Redirect } from "react-router-dom";
 import { Typography } from "@material-ui/core";
+import { RouteComponentProps } from "react-router-dom";
+import Fade from "react-reveal/Fade";
 
-function QuizPage() {
+const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
   const dispatch = useDispatch();
   const { fetchingQuizSagaRequest, currentStep, quizQuestions } = useSelector(
     (state: IState) => state.QuizApp
@@ -26,21 +28,23 @@ function QuizPage() {
   }
 
   return (
-    <div>
-      <Typography gutterBottom variant="h3" align="center">
-        {category}
-      </Typography>
-      <QuestionCard
-        question={question}
-        category={category}
-        options={[{ value: "False" }, { value: "True" }]}
-        onAnswer={(val) => {
-          setUserResponses((prevResponses) => [...prevResponses, val]);
-          dispatch(QuizAppActions.increaseCurrentStep());
-        }}
-      />
-    </div>
+    <Fade>
+      <div>
+        <Typography gutterBottom variant="h3" align="center">
+          {category}
+        </Typography>
+        <QuestionCard
+          question={question}
+          category={category}
+          options={[{ value: "False" }, { value: "True" }]}
+          onAnswer={(val) => {
+            setUserResponses((prevResponses) => [...prevResponses, val]);
+            dispatch(QuizAppActions.increaseCurrentStep());
+          }}
+        />
+      </div>
+    </Fade>
   );
-}
+};
 
 export default React.memo(QuizPage);

@@ -21,7 +21,11 @@
     "jsx": "preserve"
   },
   "include": [
-    "src"
+    "src", "@types/index.d.ts"
   ],
+  "typeRoots": [
+    "./node_modules/@types",
+    "./@types"
+],
   "extends": "./extendedtsconfig.json"
 }

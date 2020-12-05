@@ -11,6 +11,7 @@ import parse from "html-react-parser";
 import ReplayIcon from "@material-ui/icons/Replay";
 import { QuizAppActions } from "../../QuizApp/reducer";
 import { RouteComponentProps } from "react-router-dom";
+import Fade from "react-reveal/Fade";
 
 const useStyles = makeStyles({
   correct: {
@@ -40,9 +41,11 @@ const ResultsPage: React.FunctionComponent<RouteComponentProps> = ({
     (state: IState) => state.QuizApp
   );
 
+  const correctAnswersArray: number[] = [];
   const correctAnswersCount = userResponses.reduce(
     (prevVal, currVal, index) => {
       if (quizQuestions[index].correct_answer === currVal) {
+        correctAnswersArray[index] = prevVal + 1;
         return prevVal + 1;
       }
       return prevVal;
@@ -51,46 +54,49 @@ const ResultsPage: React.FunctionComponent<RouteComponentProps> = ({
   );
 
   return (
-    <div className={classes.spacer}>
-      <Typography gutterBottom variant="h5" component="h2">
-        You Scored
-        <br />
-        {`${correctAnswersCount}/${quizQuestions.length}`}
-      </Typography>
-      <List dense>
-        {quizQuestions.map((questionOBJ, index) => {
-          const isCorrect = questionOBJ.correct_answer === userResponses[index];
-          return (
-            <ListItem
-              className={`${classes.listItem} ${
-                isCorrect ? classes.correct : classes.incorrect
-              }`}
-            >
-              <ListItemText
-                primary={parse(questionOBJ.question)}
-                secondary={
-                  isCorrect
-                    ? ""
-                    : `Correct answer: ${questionOBJ.correct_answer} - your answer: ${userResponses[index]}`
-                }
-              />
-            </ListItem>
-          );
-        })}
-      </List>
-      <Button
-        variant="outlined"
-        color="primary"
-        size="large"
-        startIcon={<ReplayIcon />}
-        onClick={() => {
-          dispatch(QuizAppActions.resetToInitialState());
-          history.push("/");
-        }}
-      >
-        Play Again?
-      </Button>
-    </div>
+    <Fade>
+      <div className={classes.spacer}>
+        <Typography gutterBottom variant="h5" component="h2">
+          You Scored
+          <br />
+          {`${correctAnswersCount}/${quizQuestions.length}`}
+        </Typography>
+        <List dense>
+          {quizQuestions.map((questionOBJ, index) => {
+            const isCorrect =
+              questionOBJ.correct_answer === userResponses[index];
+            return (
+              <ListItem
+                className={`${classes.listItem} ${
+                  isCorrect ? classes.correct : classes.incorrect
+                }`}
+              >
+                <ListItemText
+                  primary={parse(questionOBJ.question)}
+                  secondary={
+                    isCorrect
+                      ? `Correct Answer number: ${correctAnswersArray[index]}`
+                      : `Correct answer: ${questionOBJ.correct_answer} - your answer: ${userResponses[index]}`
+                  }
+                />
+              </ListItem>
+            );
+          })}
+        </List>
+        <Button
+          variant="outlined"
+          color="primary"
+          size="large"
+          startIcon={<ReplayIcon />}
+          onClick={() => {
+            dispatch(QuizAppActions.resetToInitialState());
+            history.push("/");
+          }}
+        >
+          Play Again?
+        </Button>
+      </div>
+    </Fade>
   );
 };
 export default React.memo(ResultsPage);
