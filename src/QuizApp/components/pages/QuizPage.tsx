@@ -5,12 +5,22 @@ import { IState } from "../../../store/reducers";
 import QuestionCard from "../Subcomponents/QuestionCard";
 import { Redirect } from "react-router-dom";
 import { Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { RouteComponentProps } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 import { shuffleArray } from "../../../utils/utils";
 
+const useStyles = makeStyles({
+  spacer: {
+    margin: "2vw auto",
+    textAlign: "center",
+  },
+});
+
 const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
+
   const { fetchingQuizSagaRequest, currentStep, quizQuestions } = useSelector(
     (state: IState) => state.QuizApp
   );
@@ -46,7 +56,7 @@ const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
   ];
 
   return (
-    <div>
+    <div className={classes.spacer}>
       {cardFader && (
         <Fade>
           <Typography gutterBottom variant="h4" align="center">

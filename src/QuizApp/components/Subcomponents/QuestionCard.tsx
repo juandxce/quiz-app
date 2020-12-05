@@ -18,6 +18,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
   },
   clearColor: { color: "white" },
+  CardMedia: { height: "40vh" },
 });
 
 export type Option = {
@@ -46,9 +47,9 @@ function QuestionCard({
       <CardMedia
         component="img"
         alt="CoolCategoryImage"
-        height="140"
         image="https://images.unsplash.com/photo-1583699998579-5872a2117151?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"
         title="CoolCategoryImage"
+        className={classes.CardMedia}
       />
       <CardContent>
         <Typography variant="body1" color="textSecondary" component="p">
@@ -68,6 +69,7 @@ function QuestionCard({
             style={{
               backgroundColor: option.color || colors[index],
             }}
+            fullWidth
           >
             {option.value}
           </Button>

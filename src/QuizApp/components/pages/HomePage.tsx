@@ -33,7 +33,7 @@ const HomePage: React.FunctionComponent<RouteComponentProps> = ({
   return (
     <Fade>
       <div className={classes.spacer}>
-        <Typography variant="h3">Welcome to the Trivia Challenge!</Typography>
+        <Typography variant="h3" gutterBottom>Welcome to the Trivia Challenge!</Typography>
         <Typography>
           You will be presented with 10 True or False questions.
         </Typography>
