@@ -1,14 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography, Button } from "@material-ui/core";
 import { RouteComponentProps } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import { useSelector, useDispatch } from "react-redux";
+import { QuizAppActions } from "../../QuizApp/reducer";
+import { IState } from "../../store/reducers";
 
-interface ChildComponentProps extends RouteComponentProps<any> {
-  /* other props for ChildComponent */
-}
+const useStyles = makeStyles({
+  spacer: {
+    margin: "2vw auto",
+    textAlign: "center",
+  },
+  btnTopSpace: { marginTop: "1vw" },
+});
 
-const HomePage: React.FunctionComponent<ChildComponentProps> = ({ history }) => {
+const HomePage: React.FunctionComponent<RouteComponentProps> = ({
+  history,
+}) => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const { fetchingQuizSagaRequest, quizQuestions } = useSelector(
+    (state: IState) => state.QuizApp
+  );
+
+  useEffect(() => {
+    if (fetchingQuizSagaRequest || quizQuestions.length) return;
+    dispatch(QuizAppActions.fetchQuizSagaRequest());
+  }, [dispatch, fetchingQuizSagaRequest, quizQuestions.length]);
+
   return (
-    <div style={{ textAlign: "center" }}>
+    <div className={classes.spacer}>
       <Typography variant="h2">Welcome to the Trivia Challenge!</Typography>
       <Typography>
         You will be presented with 10 True or False questions.
@@ -21,6 +43,8 @@ const HomePage: React.FunctionComponent<ChildComponentProps> = ({ history }) => 
         onClick={() => {
           history.push("/start-quiz");
         }}
+        size="large"
+        className={classes.btnTopSpace}
       >
         Begin
       </Button>

@@ -6,7 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import DOMPurify from "dompurify";
+import parse from "html-react-parser";
 
 const useStyles = makeStyles({
   questionCard: {
@@ -16,6 +16,7 @@ const useStyles = makeStyles({
   flexCenter: {
     justifyContent: "center",
   },
+  clearColor: { color: "white" },
 });
 
 export type Option = {
@@ -24,7 +25,6 @@ export type Option = {
 };
 
 function QuestionCard({
-  category = "",
   question = "",
   options = [],
   onAnswer = (response) => {
@@ -50,23 +50,23 @@ function QuestionCard({
         title="CoolCategoryImage"
       />
       <CardContent>
-        <Typography
-          variant="body1"
-          color="textSecondary"
-          component="p"
-          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(question) }}
-        />
+        <Typography variant="body1" color="textSecondary" component="p">
+          {parse(question)}
+        </Typography>
       </CardContent>
       <CardActions className={classes.flexCenter}>
         {options.map((option, index) => (
           <Button
             key={index}
-            variant="outlined"
+            variant="contained"
             onClick={() => {
               onAnswer(option.value);
             }}
-            size="small"
-            style={{ color: option.color || colors[index] }}
+            size="large"
+            className={classes.clearColor}
+            style={{
+              backgroundColor: option.color || colors[index],
+            }}
           >
             {option.value}
           </Button>

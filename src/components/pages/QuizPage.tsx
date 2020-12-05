@@ -8,12 +8,8 @@ import { Typography } from "@material-ui/core";
 
 function QuizPage() {
   const dispatch = useDispatch();
-  const quizQuestions = useSelector(
-    (state: IState) => state.QuizApp.quizQuestions
-  );
-  const currentStep = useSelector((state: IState) => state.QuizApp.currentStep);
-  const fetchingQuizSagaRequest = useSelector(
-    (state: IState) => state.QuizApp.fetchingQuizSagaRequest
+  const { fetchingQuizSagaRequest, currentStep, quizQuestions } = useSelector(
+    (state: IState) => state.QuizApp
   );
   const [userResponses, setUserResponses] = useState<string[]>([]);
 

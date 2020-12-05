@@ -2,15 +2,15 @@ import React from "react";
 import HomePage from "../components/pages/HomePage";
 import QuizPage from "../components/pages/QuizPage";
 import ResultsPage from "../components/pages/ResultsPage";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles({
   quizPageWrapper: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
     height: "100vh",
     overflow: "auto",
+    flexDirection: "column",
   },
 });
 function App() {

@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import DOMPurify from "dompurify";
 
 type Question = {
   category: string;
@@ -26,13 +27,19 @@ const QuizAppSlice = createSlice({
     },
     setQuizQuestions(state, action: PayloadAction<Question[]>) {
       state.fetchingQuizSagaRequest = false;
-      state.quizQuestions = action.payload;
+      state.quizQuestions = action.payload.map((el) => {
+        el.question = DOMPurify.sanitize(el.question);
+        return el;
+      });
     },
     setUserResponses(state, action: PayloadAction<string[]>) {
       state.userResponses = action.payload;
     },
     increaseCurrentStep(state) {
       state.currentStep = state.currentStep + 1;
+    },
+    resetToInitialState(state) {
+      return initialState;
     },
   },
 });
