@@ -40,7 +40,6 @@ const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
     }, 100);
   };
   useEffect(() => {
-    console.log("cardFader", cardFader);
     if (cardFader) return;
     showCardFader();
   }, [cardFader]);
