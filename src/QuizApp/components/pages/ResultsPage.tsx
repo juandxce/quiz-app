@@ -56,46 +56,67 @@ const ResultsPage: React.FunctionComponent<RouteComponentProps> = ({
   return (
     <Fade>
       <div className={classes.spacer}>
-        <Typography gutterBottom variant="h5" component="h2">
-          You Scored
-          <br />
-          {`${correctAnswersCount}/${quizQuestions.length}`}
-        </Typography>
-        <List dense>
-          {quizQuestions.map((questionOBJ, index) => {
-            const isCorrect =
-              questionOBJ.correct_answer === userResponses[index];
-            return (
-              <ListItem
-                key={index}
-                className={`${classes.listItem} ${
-                  isCorrect ? classes.correct : classes.incorrect
-                }`}
-              >
-                <ListItemText
-                  primary={parse(questionOBJ.question)}
-                  secondary={
-                    isCorrect
-                      ? `Correct Answer number: ${correctAnswersArray[index]}`
-                      : `Correct answer: ${questionOBJ.correct_answer} - your answer: ${userResponses[index]}`
-                  }
-                />
-              </ListItem>
-            );
-          })}
-        </List>
-        <Button
-          variant="outlined"
-          color="primary"
-          size="large"
-          startIcon={<ReplayIcon />}
-          onClick={() => {
-            dispatch(QuizAppActions.resetToInitialState());
-            history.push("/");
-          }}
-        >
-          Play Again?
-        </Button>
+        {!!userResponses.length &&
+        userResponses.length === quizQuestions.length ? (
+          <>
+            <Typography gutterBottom variant="h5" component="h2">
+              You Scored
+              <br />
+              {`${correctAnswersCount}/${quizQuestions.length}`}
+            </Typography>
+            <List dense>
+              {quizQuestions.map((questionOBJ, index) => {
+                const isCorrect =
+                  questionOBJ.correct_answer === userResponses[index];
+                return (
+                  <ListItem
+                    key={index}
+                    className={`${classes.listItem} ${
+                      isCorrect ? classes.correct : classes.incorrect
+                    }`}
+                  >
+                    <ListItemText
+                      primary={parse(questionOBJ.question)}
+                      secondary={
+                        isCorrect
+                          ? `Correct Answer number: ${correctAnswersArray[index]}`
+                          : `Correct answer: ${questionOBJ.correct_answer} - your answer: ${userResponses[index]}`
+                      }
+                    />
+                  </ListItem>
+                );
+              })}
+            </List>
+            <Button
+              variant="outlined"
+              color="primary"
+              size="large"
+              startIcon={<ReplayIcon />}
+              onClick={() => {
+                dispatch(QuizAppActions.resetToInitialState());
+                history.push("/");
+              }}
+            >
+              Play Again?
+            </Button>
+          </>
+        ) : (
+          <>
+            <Typography gutterBottom variant="h5" component="h2">
+              You haven't completed a quiz
+            </Typography>
+            <Button
+              variant="outlined"
+              color="primary"
+              size="large"
+              onClick={() => {
+                history.push("/start-quiz");
+              }}
+            >
+              Start playing
+            </Button>
+          </>
+        )}
       </div>
     </Fade>
   );

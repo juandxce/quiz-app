@@ -14,13 +14,24 @@ const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
     (state: IState) => state.QuizApp
   );
   const [userResponses, setUserResponses] = useState<string[]>([]);
+  const [cardFader, setCardFader] = useState(true);
+  const { category, question } = quizQuestions?.[currentStep] || {};
 
   useEffect(() => {
     if (fetchingQuizSagaRequest || quizQuestions.length) return;
     dispatch(QuizAppActions.fetchQuizSagaRequest());
   }, [dispatch, fetchingQuizSagaRequest, quizQuestions.length]);
 
-  const { category, question } = quizQuestions?.[currentStep] || {};
+  const showCardFader = () => {
+    setTimeout(() => {
+      setCardFader(true);
+    }, 100);
+  };
+  useEffect(() => {
+    console.log("cardFader", cardFader);
+    if (cardFader) return;
+    showCardFader();
+  }, [cardFader]);
 
   if (currentStep && currentStep === quizQuestions.length) {
     dispatch(QuizAppActions.setUserResponses(userResponses));
@@ -28,22 +39,25 @@ const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
   }
 
   return (
-    <Fade>
-      <div>
-        <Typography gutterBottom variant="h3" align="center">
-          {category}
-        </Typography>
-        <QuestionCard
-          question={question}
-          category={category}
-          options={[{ value: "False" }, { value: "True" }]}
-          onAnswer={(val) => {
-            setUserResponses((prevResponses) => [...prevResponses, val]);
-            dispatch(QuizAppActions.increaseCurrentStep());
-          }}
-        />
-      </div>
-    </Fade>
+    <div>
+      {cardFader && (
+        <Fade>
+          <Typography gutterBottom variant="h3" align="center">
+            {category}
+          </Typography>
+          <QuestionCard
+            question={question}
+            category={category}
+            options={[{ value: "False" }, { value: "True" }]}
+            onAnswer={(val) => {
+              setCardFader(false);
+              setUserResponses((prevResponses) => [...prevResponses, val]);
+              dispatch(QuizAppActions.increaseCurrentStep());
+            }}
+          />
+        </Fade>
+      )}
+    </div>
   );
 };
 
