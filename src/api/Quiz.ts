@@ -10,11 +10,7 @@ type QuizAnswerType = {
 async function getQuizQuestions() {
   const url =
     "https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean";
-  const resp = await fetch(url, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: "{}",
-  });
+  const resp = await fetch(url);
   if (!resp.ok) {
     throw new Error(await resp.text());
   }

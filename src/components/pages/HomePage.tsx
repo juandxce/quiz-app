@@ -19,7 +19,7 @@ const HomePage: React.FunctionComponent<ChildComponentProps> = ({ history }) => 
         variant="outlined"
         color="primary"
         onClick={() => {
-          history.push("/quiz");
+          history.push("/start-quiz");
         }}
       >
         Begin
