@@ -1,7 +1,7 @@
 import React from "react";
-import HomePage from "../components/pages/HomePage";
-import QuizPage from "../components/pages/QuizPage";
-import ResultsPage from "../components/pages/ResultsPage";
+import HomePage from "./components/pages/HomePage";
+import QuizPage from "./components/pages/QuizPage";
+import ResultsPage from "./components/pages/ResultsPage";
 import { Switch, Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles({

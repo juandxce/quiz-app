@@ -3,8 +3,8 @@ import { Typography, Button } from "@material-ui/core";
 import { RouteComponentProps } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
-import { QuizAppActions } from "../../QuizApp/reducer";
-import { IState } from "../../store/reducers";
+import { QuizAppActions } from "../../reducer";
+import { IState } from "../../../store/reducers";
 import Fade from "react-reveal/Fade";
 
 const useStyles = makeStyles({

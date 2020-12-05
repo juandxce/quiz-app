@@ -18,14 +18,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "react-jsx"
   },
   "include": [
-    "src", "@types/index.d.ts"
+    "src",
+    "@types/index.d.ts"
   ],
   "typeRoots": [
     "./node_modules/@types",
     "./@types"
-],
+  ],
   "extends": "./extendedtsconfig.json"
 }

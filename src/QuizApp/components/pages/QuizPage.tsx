@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { QuizAppActions } from "../../QuizApp/reducer";
+import { QuizAppActions } from "../../reducer";
 import { useSelector, useDispatch } from "react-redux";
-import { IState } from "../../store/reducers";
-import QuestionCard from "../../QuizApp/Subcomponents/QuestionCard";
+import { IState } from "../../../store/reducers";
+import QuestionCard from "../Subcomponents/QuestionCard";
 import { Redirect } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import { RouteComponentProps } from "react-router-dom";

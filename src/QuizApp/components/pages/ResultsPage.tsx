@@ -2,14 +2,14 @@ import React from "react";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
-import { IState } from "../../store/reducers";
+import { IState } from "../../../store/reducers";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Button from "@material-ui/core/Button";
 import parse from "html-react-parser";
 import ReplayIcon from "@material-ui/icons/Replay";
-import { QuizAppActions } from "../../QuizApp/reducer";
+import { QuizAppActions } from "../../reducer";
 import { RouteComponentProps } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 
@@ -67,6 +67,7 @@ const ResultsPage: React.FunctionComponent<RouteComponentProps> = ({
               questionOBJ.correct_answer === userResponses[index];
             return (
               <ListItem
+                key={index}
                 className={`${classes.listItem} ${
                   isCorrect ? classes.correct : classes.incorrect
                 }`}
