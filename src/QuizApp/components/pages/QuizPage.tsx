@@ -59,7 +59,9 @@ const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
       {cardFader && (
         <Fade>
           <Typography gutterBottom variant="h4" align="center">
-            {category}
+            {`Category: ${category}`}
+            <br />
+            {`Question: ${currentStep}/${quizQuestions.length}`}
           </Typography>
           <QuestionCard
             question={question}
