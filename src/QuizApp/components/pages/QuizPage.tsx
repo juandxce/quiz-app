@@ -7,6 +7,7 @@ import { Redirect } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import { RouteComponentProps } from "react-router-dom";
 import Fade from "react-reveal/Fade";
+import { shuffleArray } from "../../../utils/utils";
 
 const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,8 @@ const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
   );
   const [userResponses, setUserResponses] = useState<string[]>([]);
   const [cardFader, setCardFader] = useState(true);
-  const { category, question } = quizQuestions?.[currentStep] || {};
+  const { category, question, correct_answer, incorrect_answers = [] } =
+    quizQuestions?.[currentStep] || {};
 
   useEffect(() => {
     if (fetchingQuizSagaRequest || quizQuestions.length) return;
@@ -38,6 +40,11 @@ const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
     return <Redirect to="/results" />;
   }
 
+  const options = [
+    { value: correct_answer },
+    ...incorrect_answers.map((value) => ({ value })),
+  ];
+
   return (
     <div>
       {cardFader && (
@@ -48,7 +55,7 @@ const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
           <QuestionCard
             question={question}
             category={category}
-            options={[{ value: "False" }, { value: "True" }]}
+            options={shuffleArray(options)}
             onAnswer={(val) => {
               setCardFader(false);
               setUserResponses((prevResponses) => [...prevResponses, val]);
