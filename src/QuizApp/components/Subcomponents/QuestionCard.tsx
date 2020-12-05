@@ -12,6 +12,7 @@ const useStyles = makeStyles({
   questionCard: {
     maxWidth: "80vw",
     textAlign: "center",
+    margin: "0 auto",
   },
   flexCenter: {
     justifyContent: "center",

@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     margin: "2vw auto",
     textAlign: "center",
   },
-  btnTopSpace: { marginTop: "1vw" },
+  btnTopSpace: { marginTop: "2vw" },
 });
 
 const HomePage: React.FunctionComponent<RouteComponentProps> = ({
@@ -33,7 +33,7 @@ const HomePage: React.FunctionComponent<RouteComponentProps> = ({
   return (
     <Fade>
       <div className={classes.spacer}>
-        <Typography variant="h2">Welcome to the Trivia Challenge!</Typography>
+        <Typography variant="h3">Welcome to the Trivia Challenge!</Typography>
         <Typography>
           You will be presented with 10 True or False questions.
         </Typography>

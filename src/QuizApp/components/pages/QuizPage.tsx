@@ -42,7 +42,7 @@ const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
     <div>
       {cardFader && (
         <Fade>
-          <Typography gutterBottom variant="h3" align="center">
+          <Typography gutterBottom variant="h4" align="center">
             {category}
           </Typography>
           <QuestionCard
