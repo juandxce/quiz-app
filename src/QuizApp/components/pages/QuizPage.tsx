@@ -8,7 +8,7 @@ import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { RouteComponentProps } from "react-router-dom";
 import Fade from "react-reveal/Fade";
-import { shuffleArray } from "../../../utils/utils";
+import { sortArrayByProp } from "../../../utils/utils";
 
 const useStyles = makeStyles({
   spacer: {
@@ -58,10 +58,13 @@ const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
     return <Redirect to="/results" />;
   }
 
-  const options = [
-    { value: correct_answer },
-    ...incorrect_answers.map((value) => ({ value })),
-  ];
+  const options = sortArrayByProp(
+    [
+      { value: correct_answer },
+      ...incorrect_answers.map((value) => ({ value })),
+    ],
+    "value"
+  );
 
   return (
     <div className={classes.spacer}>
@@ -75,7 +78,7 @@ const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
           <QuestionCard
             question={question}
             category={category}
-            options={shuffleArray(options)}
+            options={options}
             onAnswer={onAnswer}
           />
         </Fade>

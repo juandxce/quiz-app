@@ -1,3 +1,4 @@
 import quizAPI from './Quiz';
 
-export default {quizAPI}
+const globalAPI = {quizAPI};
+export default globalAPI;

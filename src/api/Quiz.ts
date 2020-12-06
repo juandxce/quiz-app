@@ -18,5 +18,5 @@ async function getQuizQuestions() {
   const data: QuizAnswerType = await resp.json();
   return data;
 }
-
-export default { getQuizQuestions };
+const quizAPI = { getQuizQuestions }
+export default quizAPI;
