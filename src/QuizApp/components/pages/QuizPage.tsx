@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { QuizAppActions } from "../../reducer";
 import { useSelector, useDispatch } from "react-redux";
 import { IState } from "../../../store/reducers";
@@ -44,6 +44,15 @@ const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
     showCardFader();
   }, [cardFader]);
 
+  const onAnswer = useCallback(
+    (val) => {
+      setCardFader(false);
+      setUserResponses((prevResponses) => [...prevResponses, val]);
+      dispatch(QuizAppActions.increaseCurrentStep());
+    },
+    [dispatch]
+  );
+
   if (currentStep && currentStep === quizQuestions.length) {
     dispatch(QuizAppActions.setUserResponses(userResponses));
     return <Redirect to="/results" />;
@@ -67,11 +76,7 @@ const QuizPage: React.FunctionComponent<RouteComponentProps> = () => {
             question={question}
             category={category}
             options={shuffleArray(options)}
-            onAnswer={(val) => {
-              setCardFader(false);
-              setUserResponses((prevResponses) => [...prevResponses, val]);
-              dispatch(QuizAppActions.increaseCurrentStep());
-            }}
+            onAnswer={onAnswer}
           />
         </Fade>
       )}
